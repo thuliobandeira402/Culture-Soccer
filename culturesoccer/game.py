@@ -183,7 +183,7 @@ while True:
 
         if event.type == KEYDOWN:
             # tela inicial 
-            if event.key == K_g:
+            if event.key == K_RETURN:
                 comecou = True
                 tela_inicial = False
                 tela_paises = True
