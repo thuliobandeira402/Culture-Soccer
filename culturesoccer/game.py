@@ -240,7 +240,7 @@ while True:
                     tela_paises = False
                     tela_dificuldade = True
  
-            # --- tela de dificuldade: 1=fácil, 2=médio, 3=difícil ---
+            # ---- tela de dificuldade: 1=fácil, 2=médio, 3=difícil ---
             elif tela_dificuldade:
                 if event.key == pygame.K_1:
                     dificuldade_selecionada = 'facil'
@@ -283,7 +283,7 @@ while True:
                     som_exec(clique)
                     resposta_escolhida = 3
                 
-            # -- tela chute ---
+            # -- tela chute ----
             if tela_penalti and estado_jogo == 'CHUTE':   
                 resposta_chute = -1
                 if event.key == pygame.K_a:
@@ -379,7 +379,7 @@ while True:
         )
         tela.blit(texto_pontos, (10, 10))
  
-        # se está esperando resposta, desenha a pergunta
+        # desenhar a pergunta enquanto espera resposta
         if aguardando_resposta:
             desenhar_pergunta(tela, pergunta_atual, fonte_pequena, fonte_pequena, LARGURA, ALTURA)
     
@@ -447,7 +447,7 @@ while True:
                 chutando = False
                 goleiro_pulando = False
 
-        # --- resultado da resposta ---
+        # --- resultado da resposta -----
         if estado_jogo == 'RESULTADO':          
             mensagem_resultado_formatted = fonte.render(mensagem_resultado, True, (255, 255, 0))
             tela.blit(mensagem_resultado_formatted, (LARGURA // 2 - mensagem_resultado_formatted.get_width() // 2,ALTURA // 2))
@@ -460,7 +460,7 @@ while True:
                     estado_jogo = 'CHUTE'
                     escolha_chute = True
                 else:
-                    # errou a pergunta: troca turno e passa para a próxima rodada
+                    # Trocar de turno
                     som_exec(perdeu_gol)
                     round_atual += 1
                     if round_atual >= quantidade_de_rounds:
@@ -495,8 +495,11 @@ while True:
                 if round_atual >= quantidade_de_rounds:
                     jogo = False
                 else:
-                    # troca o turno corretamente
-                    turno_atual = 2 if turno_atual == 1 else 1
+                    # troca o turno 
+                    if turno_atual == 1:
+                        turno_atual = 2
+                    else:
+                        turno_atual = 1
                     estado_jogo = 'PERGUNTA'
                     aguardando_resposta = True
                     pergunta_atual = pegar_pergunta(pais_selecionado, dificuldade_selecionada)
