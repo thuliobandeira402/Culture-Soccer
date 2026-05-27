@@ -3,9 +3,7 @@ import json
 import urllib.request
 import os
 
-# ============================================================
-#  CARREGA O BANCO DE PERGUNTAS DO ARQUIVO perguntas.json
-# ============================================================
+
 
 diretorio_atual = os.path.dirname(__file__)
 caminho_json = os.path.join(diretorio_atual, "perguntas.json")
@@ -13,14 +11,15 @@ caminho_json = os.path.join(diretorio_atual, "perguntas.json")
 with open(caminho_json, "r", encoding="utf-8") as arquivo:
     BANCO_PERGUNTAS = json.load(arquivo)
 
-# Lista que guarda quais perguntas já foram feitas (evita repetição)
+# Lista que guarda quais perguntas já foram feitas 
 perguntas_usadas = []
 
 
-# -------------------------------------------------------
-# Pega uma pergunta aleatória do banco, sem repetir
-# -------------------------------------------------------
+
+
+
 def pegar_pergunta(pais, nivel):
+    """Pega uma pergunta aleatória do banco, sem repetir"""
     lista = BANCO_PERGUNTAS[pais][nivel]
 
     # Monta uma lista só com as perguntas que ainda não foram usadas
@@ -31,7 +30,6 @@ def pegar_pergunta(pais, nivel):
 
     # Se todas já foram usadas, reseta e começa de novo
     if len(disponiveis) == 0:
-        pegar_pergunta_ia(pais, nivel)
         perguntas_usadas.clear()
         disponiveis = lista
 
@@ -41,57 +39,22 @@ def pegar_pergunta(pais, nivel):
     return escolhida
 
 
-# -------------------------------------------------------
-# Verifica se o jogador acertou
-# -------------------------------------------------------
+
 def verificar_resposta(pergunta, indice_escolhido):
+
+    """Verificar se o jogador acertou"""
     if indice_escolhido == pergunta["resposta"]:
         return True
     else:
         return False
 
 
-# -------------------------------------------------------
-# Gera uma pergunta nova via IA (Claude API)
-# Só é chamada quando o banco local acabar
-# -------------------------------------------------------
-def pegar_pergunta_ia(pais, nivel):
-    prompt = (
-        "Gere 1 pergunta de quiz de nível " + nivel + " sobre a CULTURA do país: " + pais + ".\n"
-        "Responda SOMENTE com JSON válido, sem texto extra.\n"
-        "Formato:\n"
-        '{"pergunta": "Texto?", "opcoes": ["A", "B", "C", "D"], "resposta": 0}\n'
-        "Regras: exatamente 4 opcoes, resposta é o índice correto (0 a 3), em português."
-    )
-
-    corpo = json.dumps({
-        "model": "claude-sonnet-4-20250514",
-        "max_tokens": 500,
-        "messages": [{"role": "user", "content": prompt}]
-    }).encode("utf-8")
-
-    requisicao = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=corpo,
-        headers={"Content-Type": "application/json"},
-        method="POST"
-    )
-
-    try:
-        resposta = urllib.request.urlopen(requisicao, timeout=10)
-        dados = json.loads(resposta.read().decode("utf-8"))
-        texto = dados["content"][0]["text"].strip()
-        pergunta = json.loads(texto)
-        return pergunta
-    except Exception as erro:
-        print("Erro ao chamar a IA:", erro)
-        return None
 
 
-# -------------------------------------------------------
-# Desenha a pergunta e as opções na tela do pygame
-# -------------------------------------------------------
+
+
 def desenhar_pergunta(tela, pergunta, fonte_grande, fonte_pequena, largura, altura):
+    """Desenha a pergunta e as opções na tela do pygame"""
     import pygame
 
     # Fundo escuro semitransparente atrás do texto
@@ -129,9 +92,10 @@ def desenhar_pergunta(tela, pergunta, fonte_grande, fonte_pequena, largura, altu
 
 
 def tela_chute(tela, fonte_grande, fonte_pequena, largura, altura, texto, lista_opcoes):
+    """tela de chute"""
     import pygame
 
-    # Fundo escuro semitransparente atrás do texto
+   
     fundo = pygame.Surface((largura - 40, 280))
     fundo.set_alpha(200)
     fundo.fill((10, 10, 50))
@@ -165,5 +129,6 @@ def tela_chute(tela, fonte_grande, fonte_pequena, largura, altura, texto, lista_
         y = y + fonte_pequena.get_height() + 6
 
 def som_exec(sound):
+    """Executar algum efeito sonoro"""
     return sound.play()
 
