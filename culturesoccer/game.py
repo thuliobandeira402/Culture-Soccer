@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 from sys import exit
 from utils.utils import *
-import random
+
 
 import os
 
@@ -34,7 +34,7 @@ perdeu_gol = pygame.mixer.Sound(som_perdeu_gol)
 clique = pygame.mixer.Sound(click_sound)
 pygame.mixer.music.load(musica_fundo)
 pygame.mixer.music.play(-1)
-
+pygame.mixer.music.set_volume(0.15)
 # ---------imagens dos menus------------
 imagem_penalti = pygame.image.load(os.path.join(diretorio_menus, 'penalti.jpg'))
 imagem_penalti = pygame.transform.scale(imagem_penalti, (LARGURA, ALTURA))
@@ -183,11 +183,16 @@ while True:
 
         if event.type == KEYDOWN:
             # tela inicial 
-            if event.key == K_RETURN:
-                comecou = True
-                tela_inicial = False
-                tela_paises = True
-                som_exec(clique)
+            if tela_inicial:
+                if event.key == K_RETURN:
+                    comecou = True
+                    tela_inicial = False
+                    tela_paises = True
+                    som_exec(clique)
+            if event.key == pygame.K_0:
+                    pygame.quit()
+                    
+
 
 
             # --- tela de países: 1 a 6 escolhe o país ---
@@ -239,6 +244,7 @@ while True:
                     pais_selecionado = 'inglaterra'
                     tela_paises = False
                     tela_dificuldade = True
+                
  
             # ---- tela de dificuldade: 1=fácil, 2=médio, 3=difícil ---
             elif tela_dificuldade:
