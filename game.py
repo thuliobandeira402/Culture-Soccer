@@ -4,6 +4,7 @@ from sys import exit
 from utils.utils import *
 from album.database import *
 from album.cards import *
+from core.personagens import criar_personagens, X_BOLA_INICIAL, Y_BOLA_INICIAL
 import os
 
 criar_tabela()
@@ -51,69 +52,19 @@ imagem_album = pygame.transform.scale(imagem_album, (LARGURA, ALTURA))
 clock = pygame.time.Clock()
 carta_bloqueada = pygame.image.load(os.path.join(diretorio_menus, 'carta_bloqueada.png')).convert_alpha()
 
-class Personagem(pygame.sprite.Sprite):
-    def __init__(self, inicio, fim, velocidade, y_linha, tela_x, tela_y, largura_frame, altura_frame, scale = 2):
-        pygame.sprite.Sprite.__init__(self)
-        self.velocidade = velocidade
-        self.imagens = []
-        self.animando = True
-        
-        # Ajuste as coordenadas: 
-        # Largura aprox: 100, Altura aprox: 130 (baseado na imagem itens.png)
-        self.largura_frame = largura_frame  
-        self.altura_frame = altura_frame
-        
-        for i in range(inicio, fim):
-            
-            img = sprite_sheet.subsurface((i * self.largura_frame, y_linha), (self.largura_frame, self.altura_frame))
-            img = pygame.transform.scale(img, (self.largura_frame * scale, self.altura_frame * scale))
-            self.imagens.append(img)
-            
-        self.index_lista = 0
-        self.image = self.imagens[self.index_lista]
-        self.rect = self.image.get_rect()
-        
-        self.rect.center = (tela_x, tela_y) 
-
-    def update(self):
-        if not self.animando:  
-            return
-        self.index_lista += self.velocidade
-        if self.index_lista >= len(self.imagens):
-            self.index_lista = 0
-        self.image = self.imagens[int(self.index_lista)]
-
-
-todas_as_sprites = pygame.sprite.Group()  
-
 #------------------------------------- PERSONAGENS -----------------------------
-x_bola = 500
-y_bola = 530
-x_bola_destino = 500  
-y_bola_destino = 200  
+x_bola = X_BOLA_INICIAL
+y_bola = Y_BOLA_INICIAL
+x_bola_destino = X_BOLA_INICIAL
+y_bola_destino = 200
 bola_movendo = False
 goleiro_pulando = False
-x_goleiro =  400
+x_goleiro = 400
 x_goleiro_destino = 300
 
-jogadores = []
-goleiro = Personagem(inicio=0, fim=3, velocidade=0.03, y_linha=570, tela_x=400, tela_y=ALTURA - 340, largura_frame=115, altura_frame=150, scale=1.3)
-bola = Personagem(3, 4, 0.1, 580, x_bola, y_bola, 130, 100)
-jogador_brasil = Personagem(0, 4, 0.05, 0, LARGURA // 2 - 110, ALTURA - 150, 115, 200)
-jogador_espanha = Personagem(4, 8, 0.05, 0, LARGURA // 2 - 110, ALTURA - 150, 115, 200)
-jogador_argentina = Personagem(inicio=0, fim=4, velocidade=0.05, y_linha=188, tela_x=LARGURA // 2 - 110, tela_y=ALTURA - 150, largura_frame=115, altura_frame=200)
-jogador_franca = Personagem(inicio=4, fim=8, velocidade=0.05, y_linha=188, tela_x=LARGURA // 2 - 110, tela_y=ALTURA - 150, largura_frame=115, altura_frame=200)
-jogador_japao = Personagem(inicio=0, fim=4, velocidade=0.05, y_linha=370, tela_x=LARGURA // 2 - 110, tela_y=ALTURA - 150, largura_frame=115, altura_frame=200)
-jogador_inglaterra = Personagem(inicio=4, fim=8, velocidade=0.05, y_linha=370, tela_x=LARGURA // 2 - 110, tela_y=ALTURA - 150, largura_frame=115, altura_frame=200)
-
-jogadores = [jogador_brasil, jogador_espanha, jogador_argentina, jogador_franca, jogador_japao, jogador_inglaterra]
-
-jogador_ativo = jogadores[0]
-
-
-todas_as_sprites.add(jogador_ativo)
-todas_as_sprites.add(bola)
-todas_as_sprites.add(goleiro)
+goleiro, bola, jogadores, todas_as_sprites, jogador_ativo = criar_personagens(
+    sprite_sheet, LARGURA, ALTURA
+)
 
 # ---------- controle de telas ----------
 tela_inicial = True
@@ -530,51 +481,47 @@ while True:
                     pergunta_atual = pegar_pergunta(pais_selecionado, dificuldade_selecionada)
 
         
-        # tela de fim de jogo e reset
-            if not jogo and round_atual >= quantidade_de_rounds:
-                tela.fill((0, 0, 0))
-                if pontos_jogador_1 > pontos_jogador_2:
-                    unlock_card('jogador1', pais_selecionado)
-                    unlock_card('jogador2', pais_selecionado)
-                    fim = fonte.render('Jogador 1 venceu!', True, (255, 255, 0))
-                    cor_fim = (255, 215, 0)
-                elif pontos_jogador_2 > pontos_jogador_1:
-                    unlock_card('jogador1', pais_selecionado)
-                    unlock_card('jogador2', pais_selecionado)
-                    fim = fonte.render('Jogador 2 venceu!', True, (255, 255, 0))
-                    cor_fim = (255, 215, 0)
-                else:
-                    unlock_card('jogador1', pais_selecionado)
-                    unlock_card('jogador2', pais_selecionado)
-                    fim = fonte.render('🤝 EMPATE! 🤝', True, (100, 200, 255))
-                    cor_fim = (100, 200, 255)
+    # tela de fim de jogo e reset
+    if not jogo and round_atual >= quantidade_de_rounds:
+        tela.fill((0, 0, 0))
+        if pontos_jogador_1 > pontos_jogador_2:
+            unlock_card('jogador1', pais_selecionado)
+            unlock_card('jogador2', pais_selecionado)
+            fim = fonte.render('Jogador 1 venceu!', True, (255, 255, 0))
+        elif pontos_jogador_2 > pontos_jogador_1:
+            unlock_card('jogador1', pais_selecionado)
+            unlock_card('jogador2', pais_selecionado)
+            fim = fonte.render('Jogador 2 venceu!', True, (255, 255, 0))
+        else:
+            unlock_card('jogador1', pais_selecionado)
+            unlock_card('jogador2', pais_selecionado)
+            fim = fonte.render('EMPATE!', True, (100, 200, 255))
 
-                pontos_texto = fonte_pequena.render(
-                    f'Jogador 1: {pontos_jogador_1}  x  Jogador 2: {pontos_jogador_2}',
-                    True, (200, 200, 200)
-                )
-                voltar_texto = fonte_pequena.render('Pressione R para voltar ao início', True, (180, 180, 180))
+        pontos_texto = fonte_pequena.render(
+            f'Jogador 1: {pontos_jogador_1}  x  Jogador 2: {pontos_jogador_2}',
+            True, (200, 200, 200)
+        )
+        voltar_texto = fonte_pequena.render('Pressione R para voltar ao inicio', True, (180, 180, 180))
 
-                tela.blit(fim, (LARGURA // 2 - fim.get_width() // 2, ALTURA // 2 - 60))
-                tela.blit(pontos_texto, (LARGURA // 2 - pontos_texto.get_width() // 2, ALTURA // 2 + 10))
-                tela.blit(voltar_texto, (LARGURA // 2 - voltar_texto.get_width() // 2, ALTURA // 2 + 60))
+        tela.blit(fim, (LARGURA // 2 - fim.get_width() // 2, ALTURA // 2 - 60))
+        tela.blit(pontos_texto, (LARGURA // 2 - pontos_texto.get_width() // 2, ALTURA // 2 + 10))
+        tela.blit(voltar_texto, (LARGURA // 2 - voltar_texto.get_width() // 2, ALTURA // 2 + 60))
 
-                # Tecla R para reiniciar
-                for event in pygame.event.get(KEYDOWN):
-                    if event.key == pygame.K_r:
-                        round_atual = 0
-                        pontos_jogador_1 = 0
-                        pontos_jogador_2 = 0
-                        turno_atual = 1
-                        estado_jogo = 'PERGUNTA'
-                        jogo = False
-                        tela_inicial = True
-                        tela_paises = False
-                        tela_dificuldade = False
-                        tela_penalti = False
-                        tela_album = False
-                        bola.rect.center = (x_bola, y_bola)
-                        goleiro.rect.center = (400, ALTURA - 340)
-                        goleiro.animando = True
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_r]:
+            round_atual = 0
+            pontos_jogador_1 = 0
+            pontos_jogador_2 = 0
+            turno_atual = 1
+            estado_jogo = 'PERGUNTA'
+            jogo = False
+            tela_inicial = True
+            tela_paises = False
+            tela_dificuldade = False
+            tela_penalti = False
+            tela_album = False
+            bola.rect.center = (x_bola, y_bola)
+            goleiro.rect.center = (400, ALTURA - 340)
+            goleiro.animando = True
         
     pygame.display.flip()
