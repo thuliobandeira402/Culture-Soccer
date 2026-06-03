@@ -52,7 +52,7 @@ imagem_album = pygame.transform.scale(imagem_album, (LARGURA, ALTURA))
 clock = pygame.time.Clock()
 carta_bloqueada = pygame.image.load(os.path.join(diretorio_menus, 'carta_bloqueada.png')).convert_alpha()
 
-#----------------------------PERSONAGENS -----------------------------
+#------------------------------------- PERSONAGENS -----------------------------
 x_bola = X_BOLA_INICIAL
 y_bola = Y_BOLA_INICIAL
 x_bola_destino = X_BOLA_INICIAL
@@ -83,10 +83,10 @@ jogo = False
 chutando = False
 estado_jogo = 'PERGUNTA'
  
-
+# turno_atual: 1 = vez do jogador 1, 2 = vez do jogador 2
 turno_atual = 1
  
-
+# aguardando_resposta: True = pergunta está na tela esperando o jogador apertar A/B/C/D
 aguardando_resposta = False
 pergunta_atual = None
 
@@ -113,8 +113,8 @@ acertou_penalti = False
 # mostrar_resultado: True = mostra "acertou/errou" por um tempo antes de passar o turno
 mostrar_resultado = False
 mensagem_resultado = ''
-tempo_resultado = 0          
-DURACAO_RESULTADO = 120      
+tempo_resultado = 0          # conta quantos frames a mensagem fica na tela
+DURACAO_RESULTADO = 120      # 120 frames = 2 segundos (a 60fps)
  
 resposta_escolhida = -1
 
@@ -165,7 +165,7 @@ while True:
                 
 
 
-            #  tela de países: 
+            # --- tela de países: 1 a 6 escolhe o país ---
             elif tela_paises and not tela_dificuldade:
                 if event.key == pygame.K_1:
                     todas_as_sprites.remove(jogador_ativo)
@@ -216,7 +216,7 @@ while True:
                     tela_dificuldade = True
                 
  
-            # --- tela de dificuldade: 
+            # ---- tela de dificuldade: 1=fácil, 2=médio, 3=difícil ---
             elif tela_dificuldade:
                 if event.key == pygame.K_1:
                     dificuldade_selecionada = 'facil'
@@ -328,7 +328,7 @@ while True:
 
             
  
-    # ---------- lógica do jogo  ---------
+    # ---------- lógica do jogo  ----------
     if jogo:
         # anima os sprites
         for jogador in jogadores:

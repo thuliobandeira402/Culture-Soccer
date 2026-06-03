@@ -2,31 +2,7 @@ import pygame
 
 
 class Personagem(pygame.sprite.Sprite):
-    """Sprite animado extraído de um sprite sheet.
-
-    Parâmetros
-    ----------
-    sprite_sheet : pygame.Surface
-        Surface já carregada com convert_alpha().
-    inicio : int
-        Índice do primeiro frame (coluna) no sprite sheet.
-    fim : int
-        Índice exclusivo do último frame (coluna) no sprite sheet.
-    velocidade : float
-        Incremento do índice de animação por frame (ex: 0.05).
-    y_linha : int
-        Posição Y do recorte no sprite sheet (linha da sprite).
-    tela_x : int
-        Posição X central inicial na tela.
-    tela_y : int
-        Posição Y central inicial na tela.
-    largura_frame : int
-        Largura de cada frame no sprite sheet (em pixels, antes do scale).
-    altura_frame : int
-        Altura de cada frame no sprite sheet (em pixels, antes do scale).
-    scale : float
-        Fator de escala aplicado ao frame após o recorte (padrão: 2).
-    """
+    """Sprite animado extraído da sprite sheet"""
 
     def __init__(
         self,
@@ -73,25 +49,15 @@ class Personagem(pygame.sprite.Sprite):
         self.image = self.imagens[int(self.index_lista)]
 
 
-# ---------------------------------------------------------------------------
+
 # Posições iniciais fixas da bola (usadas também no reset do game.py)
-# ---------------------------------------------------------------------------
+
 X_BOLA_INICIAL = 500
 Y_BOLA_INICIAL = 530
 
 
 def criar_personagens(sprite_sheet, LARGURA, ALTURA):
-    """Instancia e retorna todos os personagens do jogo.
-
-    goleiro : Personagem
-    bola : Personagem
-    jogadores : list[Personagem]
-        Lista ordenada: [brasil, espanha, argentina, franca, japao, inglaterra]
-    todas_as_sprites : pygame.sprite.Group
-        Group já com jogador_ativo (brasil), bola e goleiro adicionados.
-    jogador_ativo : Personagem
-        Referência ao jogador inicial (brasil).
-    """
+    """Instancia e retorna todos os personagens do jogo. """
 
     goleiro = Personagem(
         sprite_sheet,
