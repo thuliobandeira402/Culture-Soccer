@@ -25,6 +25,7 @@ diretorio_principal = os.path.dirname(__file__)
 diretorio_imagens = os.path.join(diretorio_principal, 'images')
 diretorio_audio = os.path.join(diretorio_principal, 'audio')
 diretorio_sprites = os.path.join(diretorio_imagens, 'sprites')
+diretorio_estadios = os.path.join(diretorio_imagens, 'stadium')
 sprite_sheet = pygame.image.load(os.path.join(diretorio_sprites, 'itens.png')).convert_alpha()
 diretorio_menus = os.path.join(diretorio_imagens, 'menus')
 
@@ -39,18 +40,41 @@ pygame.mixer.music.load(musica_fundo)
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.15)
 # ---------imagens dos menus------------
-imagem_penalti = pygame.image.load(os.path.join(diretorio_menus, 'penalti.jpg'))
-imagem_penalti = pygame.transform.scale(imagem_penalti, (LARGURA, ALTURA))
+estadios = {
+    'padrao': 'padrao.jpg',
+    'santa': 'arruda.png',
+    'nautico': 'aflitos.png',
+    'barcelona': 'campnou.png',
+    'madrid': 'bernabeu.png',
+    'psg': 'parcdesprince.png',
+    'sport': 'sport.png'
+}
+
+
+estadio = estadios['padrao']
+def carregar_estadio(nome_arquivo):
+    imagem = pygame.image.load(
+        os.path.join(diretorio_estadios, nome_arquivo)
+    ).convert()
+    return pygame.transform.scale(imagem, (LARGURA, ALTURA))
+imagem_penalti = carregar_estadio(estadio)
+
+
 imagem_inicial = pygame.image.load(os.path.join(diretorio_menus, 'tela_inicial.png'))
 imagem_inicial = pygame.transform.scale(imagem_inicial, (LARGURA, ALTURA))
+
 imagem_escolha_pais = pygame.image.load(os.path.join(diretorio_menus, 'escolha-pais.png'))
 imagem_escolha_pais = pygame.transform.scale(imagem_escolha_pais, (LARGURA, ALTURA))
+
 imagem_dificuldade = pygame.image.load(os.path.join(diretorio_menus, 'tela_dificuldade.png'))
 imagem_dificuldade = pygame.transform.scale(imagem_dificuldade, (LARGURA, ALTURA))
+
 imagem_album = pygame.image.load(os.path.join(diretorio_menus, 'album.png'))
 imagem_album = pygame.transform.scale(imagem_album, (LARGURA, ALTURA))
+
 clock = pygame.time.Clock()
 carta_bloqueada = pygame.image.load(os.path.join(diretorio_menus, 'carta_bloqueada.png')).convert_alpha()
+
 
 #------------------------------------- PERSONAGENS -----------------------------
 x_bola = X_BOLA_INICIAL
@@ -72,6 +96,7 @@ tela_paises = False
 tela_dificuldade = False
 tela_penalti = False
 tela_album = False
+tela_estadio = False
 # ---------- controle do jogo ----------
 pais_selecionado = None
 dificuldade_selecionada = None
@@ -132,6 +157,11 @@ while True:
     elif tela_album:
         tela.blit(imagem_album, (0, 0))
         desenhar_album(tela, carta_bloqueada)
+    elif tela_estadio:
+        imagem_estadio = pygame.image.load(os.path.join(diretorio_menus, 'tela_estadio.png'))
+        imagem_estadio = pygame.transform.scale(imagem_estadio, (LARGURA, ALTURA))
+        tela.blit(imagem_estadio, (0, 0))
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -162,7 +192,63 @@ while True:
                 tela_paises = False
                 tela_dificuldade = False    
                 tela_penalti = False
-                
+            
+            if event.key == pygame.K_m:
+                tela_estadio = True
+                som_exec(clique)
+                tela_inicial = False
+                tela_paises = False
+                tela_dificuldade = False    
+                tela_penalti = False
+
+            # tela estádio
+            elif tela_estadio:
+                if event.key == pygame.K_1:
+                    estadio = estadios['padrao']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_2:
+                    estadio = estadios['santa']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_3:
+                    estadio = estadios['nautico']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_4:
+                    estadio = estadios['barcelona']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_5:
+                    estadio = estadios['madrid']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_6:
+                    estadio = estadios['psg']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                elif event.key == pygame.K_7:
+                    estadio = estadios['sport']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                if event.key == pygame.K_BACKSPACE:
+                    tela_estadio = False
+                    tela_inicial = True
+                    som_exec(clique)
 
 
             # --- tela de países: 1 a 6 escolhe o país ---
