@@ -76,8 +76,6 @@ Ao longo das partidas, os jogadores também desbloqueiam **figurinhas de países
   </tr>
 </table>
 
-> 📌 **Adicionar novas imagens:** salve o arquivo em `docs/screenshots/` e replique o padrão de uma das células acima, trocando apenas o `src` e a legenda em `<sub>`.
-
 ---
 
 ## ✅ Pré-requisitos
