@@ -245,6 +245,6 @@ Distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais informaçõe
 
 ---
 
-## 👤 Autor
+## 👤 Autores
 
-Desenvolvido por [**thuliobandeira402**](https://github.com/thuliobandeira402).
+Desenvolvido por [**thuliobandeira402**](https://github.com/thuliobandeira402), e [**rivanbarroso0**](https://github.com/rivanbarroso0).
