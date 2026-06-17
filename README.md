@@ -47,12 +47,10 @@ Ao longo das partidas, os jogadores também desbloqueiam **figurinhas de países
 |---|---|
 | ![Seleção de estádio](docs/screenshots/04-estadio.png) | ![Álbum de figurinhas](docs/screenshots/05-album.png) |
 
-> 📌 **Espaço para mais imagens:** adicione aqui prints da disputa de pênaltis e das perguntas em andamento. Basta colocar os arquivos em `docs/screenshots/` e referenciá-los com a sintaxe `![descrição](docs/screenshots/nome-do-arquivo.png)`.
->
-> ```markdown
-> ![Cobrança de pênalti](docs/screenshots/06-penalti.png)
-> ![Pergunta de cultura](docs/screenshots/07-pergunta.png)
-> ```
+> 📌 **Mais imagens:** 
+> ![Cobrança de pênalti](docs/screenshots/06-penalti.jpeg)
+> ![Pergunta de cultura](docs/screenshots/07-pergunta.jpeg)
+> 
 
 ---
 
