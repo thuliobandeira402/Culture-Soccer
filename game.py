@@ -185,24 +185,26 @@ while True:
                     som_exec(clique)
 
             # tela album
-            if event.key == pygame.K_TAB:
-                tela_album = True
-                som_exec(clique)
-                tela_inicial = False
-                tela_paises = False
-                tela_dificuldade = False    
-                tela_penalti = False
+            if not tela_penalti and not tela_dificuldade and not tela_inicial: 
+                if event.key == pygame.K_TAB:
+                    tela_album = True
+                    som_exec(clique)
+                    tela_inicial = False
+                    tela_paises = False
+                    tela_dificuldade = False    
+                    tela_penalti = False
+           
+                elif event.key == pygame.K_m:
+                        tela_estadio = True
+                        som_exec(clique)
+                        tela_inicial = False
+                        tela_paises = False
+                        tela_dificuldade = False    
+                        tela_penalti = False
+                        tela_album = False
             
-            if event.key == pygame.K_m:
-                tela_estadio = True
-                som_exec(clique)
-                tela_inicial = False
-                tela_paises = False
-                tela_dificuldade = False    
-                tela_penalti = False
-
             # tela estádio
-            elif tela_estadio:
+            if tela_estadio:
                 if event.key == pygame.K_1:
                     estadio = estadios['padrao']
                     imagem_penalti = carregar_estadio(estadio)
@@ -234,17 +236,18 @@ while True:
                     tela_estadio = False
                     tela_paises = True
                 elif event.key == pygame.K_6:
-                    estadio = estadios['psg']
-                    imagem_penalti = carregar_estadio(estadio)
-                    som_exec(clique)
-                    tela_estadio = False
-                    tela_paises = True
-                elif event.key == pygame.K_7:
                     estadio = estadios['sport']
                     imagem_penalti = carregar_estadio(estadio)
                     som_exec(clique)
                     tela_estadio = False
                     tela_paises = True
+                elif event.key == pygame.K_7:
+                    estadio = estadios['psg']
+                    imagem_penalti = carregar_estadio(estadio)
+                    som_exec(clique)
+                    tela_estadio = False
+                    tela_paises = True
+                
                 if event.key == pygame.K_BACKSPACE:
                     tela_estadio = False
                     tela_inicial = True
