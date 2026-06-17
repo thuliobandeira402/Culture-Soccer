@@ -39,18 +39,44 @@ Ao longo das partidas, os jogadores também desbloqueiam **figurinhas de países
 
 ## 🖼️ Capturas de tela
 
-| Tela inicial | Seleção de país | Dificuldade |
-|---|---|---|
-| ![Tela inicial](docs/screenshots/01-tela-inicial.png) | ![Seleção de país](docs/screenshots/02-escolha-pais.png) | ![Seleção de dificuldade](docs/screenshots/03-dificuldade.png) |
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/01-tela-inicial.png" width="260"/><br/>
+      <sub><b>Tela inicial</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/02-escolha-pais.png" width="260"/><br/>
+      <sub><b>Seleção de país</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="docs/screenshots/03-dificuldade.png" width="260"/><br/>
+      <sub><b>Seleção de dificuldade</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/screenshots/04-estadio.png" width="260"/><br/>
+      <sub><b>Seleção de estádio</b></sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/05-album.png" width="260"/><br/>
+      <sub><b>Álbum de figurinhas</b></sub>
+    </td>
+    <td align="center">
+      <img src="docs/screenshots/07-pergunta.jpeg" width="260"/><br/>
+      <sub><b>Pergunta de cultura</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3">
+      <img src="docs/screenshots/06-penalti.jpeg" width="420"/><br/>
+      <sub><b>GOOOOL! Cobrança de pênalti em campo</b></sub>
+    </td>
+  </tr>
+</table>
 
-| Seleção de estádio | Álbum de figurinhas |
-|---|---|
-| ![Seleção de estádio](docs/screenshots/04-estadio.png) | ![Álbum de figurinhas](docs/screenshots/05-album.png) |
-
-> 📌 **Mais imagens:** 
-> ![Cobrança de pênalti](docs/screenshots/06-penalti.jpeg)
-> ![Pergunta de cultura](docs/screenshots/07-pergunta.jpeg)
-> 
+> 📌 **Adicionar novas imagens:** salve o arquivo em `docs/screenshots/` e replique o padrão de uma das células acima, trocando apenas o `src` e a legenda em `<sub>`.
 
 ---
 
