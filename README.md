@@ -244,6 +244,8 @@ Para contribuir, faça um fork do repositório, crie uma branch para sua altera�
 Distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais informações.
 
 ---
+## Artigos
+Rivan:https://1drv.ms/w/c/98255efd15439eb7/IQDpvyZn3ok7QInopUZu2J4uAWORElcZElSHQ5IJsOaqSKQ?e=MOxZmH
 
 ## 👤 Autores
 
