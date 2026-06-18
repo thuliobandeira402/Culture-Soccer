@@ -245,7 +245,7 @@ Distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais informaçõe
 
 ---
 ## Artigos
-Rivan:https://1drv.ms/w/c/98255efd15439eb7/IQDpvyZn3ok7QInopUZu2J4uAWORElcZElSHQ5IJsOaqSKQ?e=MOxZmH
+Rivan:https://1drv.ms/w/c/98255efd15439eb7/IQDpvyZn3ok7QInopUZu2J4uAWORElcZElSHQ5IJsOaqSKQ?e=3jLeeI
 
 ## 👤 Autores
 
