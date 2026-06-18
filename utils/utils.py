@@ -11,7 +11,7 @@ caminho_json = os.path.join(diretorio_atual, "perguntas.json")
 with open(caminho_json, "r", encoding="utf-8") as arquivo:
     BANCO_PERGUNTAS = json.load(arquivo)
 
-# Lista que guarda quais perguntas já foram feitas 
+
 perguntas_usadas = []
 
 
@@ -22,18 +22,18 @@ def pegar_pergunta(pais, nivel):
     """Pega uma pergunta aleatória do banco, sem repetir"""
     lista = BANCO_PERGUNTAS[pais][nivel]
 
-    # Monta uma lista só com as perguntas que ainda não foram usadas
+   
     disponiveis = []
     for pergunta in lista:
         if pergunta not in perguntas_usadas:
             disponiveis.append(pergunta)
 
-    # Se todas já foram usadas, reseta e começa de novo
+    
     if len(disponiveis) == 0:
         perguntas_usadas.clear()
         disponiveis = lista
 
-    # Escolhe uma pergunta aleatória e marca como usada
+    
     escolhida = random.choice(disponiveis)
     perguntas_usadas.append(escolhida)
     return escolhida
@@ -63,7 +63,7 @@ def desenhar_pergunta(tela, pergunta, fonte_grande, fonte_pequena, largura, altu
     fundo.fill((10, 10, 50))
     tela.blit(fundo, (20, altura // 4))
 
-    # Escreve o texto da pergunta (quebra linha se for longo)
+    
     palavras = pergunta["pergunta"].split()
     linha = ""
     y = altura // 4 + 10
@@ -82,7 +82,7 @@ def desenhar_pergunta(tela, pergunta, fonte_grande, fonte_pequena, largura, altu
     tela.blit(superficie, (largura // 2 - superficie.get_width() // 2, y))
     y = y + fonte_grande.get_height() + 15
 
-    # Escreve as 4 opções
+    
     letras = ["A", "B", "C", "D"]
     for i in range(4):
         texto_opcao = "[" + letras[i] + "] " + pergunta["opcoes"][i]
